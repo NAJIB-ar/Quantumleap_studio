@@ -1,0 +1,472 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Web Page</title>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        margin: 0;
+        font-family: "Poppins", sans-serif;
+        background-color: #f5f5f5;
+        background-image: url("/foto/body_konten.png");
+      }
+      .header {
+        background-color: #1a1a1a;
+        color: white;
+        padding: 20px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .header .brand {
+        display: flex;
+        align-items: center;
+      }
+      .header .brand img {
+        width: 40px;
+        height: 40px;
+        margin-right: 10px;
+      }
+      .header nav a {
+        color: white;
+        margin: 0 15px;
+        text-decoration: none;
+      }
+      .header .menu-icon {
+        display: none;
+        font-size: 24px;
+        cursor: pointer;
+      }
+      .sidebar {
+        position: fixed;
+        top: 0;
+        left: -500px;
+        width: 250px;
+        height: 100%;
+        background-color: #1a1a1a;
+        color: white;
+        padding: 20px;
+        transition: left 0.3s;
+        z-index: 1000;
+      }
+      .sidebar a {
+        color: white;
+        display: block;
+        margin: 20px 0;
+        text-decoration: none;
+      }
+      .sidebar.active {
+        left: 0;
+      }
+      .overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 999;
+      }
+      .overlay.active {
+        display: block;
+      }
+      .home {
+        background-image: linear-gradient(#221f3a, #050505);
+        /*background-image: url("/foto/bg_home.png");*/
+        color: white;
+        padding: 100px 50px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .home .text {
+        max-width: 40%;
+        margin-left: 50px;
+      }
+      .home .text h1 {
+        font-size: 48px;
+        margin: 0;
+      }
+      .home .text p {
+        font-size: 18px;
+        margin: 20px 0 0;
+        color: #d1d1d1;
+      }
+      .home img {
+        width: 400px;
+        height: 400px;
+        margin-right: 100px;
+      }
+      .home .text button {
+        margin-top: 25px;
+        padding: 20px 35px;
+        background-color: #d4bee4;
+        border: none;
+        border-radius: 16px;
+        color: #000;
+        font-weight: 1000;
+        cursor: pointer;
+      }
+      .home .text button a {
+        color: #000;
+        text-decoration: none;
+      }
+      .products,
+      .testimonials,
+      .contact {
+        padding: 50px 20px;
+        text-align: center;
+      }
+      .products .categories,
+      .products .items,
+      .testimonials .reviews {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+      .products .categories .category,
+      .products .items .item,
+      .testimonials .reviews .review,
+      .contact .info {
+        background-image: linear-gradient(#ebebeb, #d4bee4);
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 200px;
+        text-align: center;
+      }
+      .products .categories .category img,
+      .products .items .item img,
+      .testimonials .reviews .review img {
+        width: 100%;
+        height: 150px;
+        background-color: #333;
+        border-radius: 10px;
+      }
+      .products .categories .category h3,
+      .products .items .item h3,
+      .testimonials .reviews .review h3,
+      .contact .info h3 {
+        margin: 10px 0 5px;
+        font-size: 18px;
+      }
+      .products .categories .category p,
+      .products .items .item p,
+      .testimonials .reviews .review p,
+      .contact .info p {
+        font-size: 14px;
+        color: #666;
+      }
+      .products .items .item h3,
+      .products .items .item p {
+        margin: 10px 0;
+      }
+      .products .items .item p {
+        font-weight: bold;
+      }
+      .products .view-more {
+        margin-top: 20px;
+      }
+      .products .view-more button {
+        background-color: #6f4a8f;
+        color: white;
+        border: none;
+        padding: 15px 25px;
+        border-radius: 10px;
+        cursor: pointer;
+      }
+      .testimonials .reviews .review .stars {
+        color: #fbbf24;
+      }
+      .contact .info {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 50px;
+        width: 100%;
+        box-sizing: border-box;
+      }
+      .contact .info .text {
+        text-align: left;
+        flex: 1;
+      }
+      .contact .info .text h3 {
+        margin: 0 0 10px;
+      }
+      .contact .info .text p {
+        margin: 0;
+        color: #666;
+      }
+      .contact .info .icons {
+        display: flex;
+        gap: 10px;
+      }
+      .contact .info .icons i {
+        font-size: 24px;
+        color: #333;
+      }
+      .contact .info img {
+        flex: 1;
+        max-width: 150px;
+        height: auto;
+      }
+      @media (max-width: 768px) {
+        .header nav {
+          display: none;
+        }
+        .header .menu-icon {
+          display: block;
+        }
+        .home {
+          flex-direction: column;
+          text-align: center;
+        }
+        .home .text {
+          max-width: 100%;
+          margin-right: 50px;
+        }
+        .home img {
+          margin-top: 75px;
+          margin-right: 50px;
+        }
+        .contact .info {
+          flex-direction: column;
+          text-align: center;
+        }
+        .contact .info .text {
+          margin-bottom: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+    <div class="sidebar" id="sidebar">
+      <a href="#home">Home</a>
+      <a href="#product">Product</a>
+      <a href="#review">Review</a>
+      <a href="#contact">Contact</a>
+    </div>
+
+    <header class="header">
+      <div class="menu-icon" onclick="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+      </div>
+      <nav>
+        <a href="#home">Home</a>
+        <a href="#product">Product</a>
+        <a href="#review">Review</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <div class="brand">
+        <img
+          alt="Brand Logo"
+          height="40"
+          src="https://storage.googleapis.com/a1aa/image/oXMmAezhEjwDI6xe9f0TsdB3o6qFy11ye6c9tQlm0vZSv43PB.jpg"
+          width="40"
+        />
+        <span>QUANTUMLEAP STUDIO</span>
+      </div>
+    </header>
+
+    <!-- home section -->
+    <section class="home" id="home">
+      <div class="text">
+        <h1>Buat Imajinasimu Jadi Nyata!</h1>
+        <p>
+          Quantum Leap Studio akan membantu desain produk anda dan mencari
+          desain terbaik serta mempunyai nilai estetika tinggi.
+        </p>
+        <button><a href="#product">Cari Desain</a></button>
+      </div>
+      <img alt="home Image" height="300" src="/foto/human1.png" width="300" />
+    </section>
+
+    <!-- product section -->
+    <section class="products" id="product">
+      <div class="categories">
+        <div class="category">
+          <img
+            alt="Tumbler Image"
+            height="150"
+            src="https://storage.googleapis.com/a1aa/image/e9Cm6eNByThF9UfljmfbCldRuc2RUS1rZeK19tULFrzAfifeTA.jpg"
+            width="200"
+          />
+          <h3>Tumbler</h3>
+          <p>Temukan Desain terbaik untuk tumbler Anda!</p>
+        </div>
+        <div class="category">
+          <img
+            alt="Mug Image"
+            height="150"
+            src="https://storage.googleapis.com/a1aa/image/gUfWyN8DpL15P6i3nfV4emzGNRjT56DPcPGNfcH8npvsv43PB.jpg"
+            width="200"
+          />
+          <h3>Mug</h3>
+          <p>Temukan Desain terbaik untuk mug Anda!</p>
+        </div>
+        <div class="category">
+          <img
+            alt="Kaos Image"
+            height="150"
+            src="https://storage.googleapis.com/a1aa/image/Wb7hlIbeQyzRby37MpFzPAwhIsZKB1iS3zOeitPxXVQyLe7nA.jpg"
+            width="200"
+          />
+          <h3>Kaos</h3>
+          <p>Temukan Desain terbaik untuk kaos Anda!</p>
+        </div>
+      </div>
+
+      <h2>Our Latest Products</h2>
+
+      <div class="items">
+        <div class="item">
+          <img
+            alt="Product Image"
+            height="150"
+            src="https://storage.googleapis.com/a1aa/image/tjOPvpyk1nIMK9QiMMco5YNI6yztCul773ojdYRWc2k9ifeTA.jpg"
+            width="200"
+          />
+          <h3>Lorem ipsum</h3>
+          <p>Rp 255.000</p>
+        </div>
+        <div class="item">
+          <img
+            alt="Product Image"
+            height="150"
+            src="https://storage.googleapis.com/a1aa/image/tjOPvpyk1nIMK9QiMMco5YNI6yztCul773ojdYRWc2k9ifeTA.jpg"
+            width="200"
+          />
+          <h3>Lorem ipsum</h3>
+          <p>Rp 255.000</p>
+        </div>
+        <div class="item">
+          <img
+            alt="Product Image"
+            height="150"
+            src="https://storage.googleapis.com/a1aa/image/tjOPvpyk1nIMK9QiMMco5YNI6yztCul773ojdYRWc2k9ifeTA.jpg"
+            width="200"
+          />
+          <h3>Lorem ipsum</h3>
+          <p>Rp 255.000</p>
+        </div>
+        <div class="item">
+          <img
+            alt="Product Image"
+            height="150"
+            src="https://storage.googleapis.com/a1aa/image/tjOPvpyk1nIMK9QiMMco5YNI6yztCul773ojdYRWc2k9ifeTA.jpg"
+            width="200"
+          />
+          <h3>Lorem ipsum</h3>
+          <p>Rp 255.000</p>
+        </div>
+        <div class="item">
+          <img
+            alt="Product Image"
+            height="150"
+            src="https://storage.googleapis.com/a1aa/image/tjOPvpyk1nIMK9QiMMco5YNI6yztCul773ojdYRWc2k9ifeTA.jpg"
+            width="200"
+          />
+          <h3>Lorem ipsum</h3>
+          <p>Rp 255.000</p>
+        </div>
+        <div class="item">
+          <img
+            alt="Product Image"
+            height="150"
+            src="https://storage.googleapis.com/a1aa/image/tjOPvpyk1nIMK9QiMMco5YNI6yztCul773ojdYRWc2k9ifeTA.jpg"
+            width="200"
+          />
+          <h3>Lorem ipsum</h3>
+          <p>Rp 255.000</p>
+        </div>
+      </div>
+      <div class="view-more">
+        <button>View More</button>
+      </div>
+    </section>
+
+    <!-- review section -->
+    <section class="testimonials" id="review">
+      <h2>What People Say About Us</h2>
+      <div class="reviews">
+        <div class="review">
+          <h3>Hani Haikal</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          <div class="stars">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+        </div>
+        <div class="review">
+          <h3>Faizi Lukman</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          <div class="stars">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+        </div>
+        <div class="review">
+          <h3>Adi Mugroho</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          <div class="stars">
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+            <i class="fas fa-star"></i>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- contact section -->
+    <section class="contact" id="contact">
+      <div class="info" style="width: 100%">
+        <img
+          alt="Contact Image"
+          height="150"
+          src="/foto/footer_logo.png"
+          width="200"
+        />
+        <div class="text">
+          <h3>Call in</h3>
+          <div class="icons">
+            <i class="fab fa-instagram"></i>
+            <i class="fab fa-whatsapp"></i>
+          </div>
+          <h3>About</h3>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+            in maximus leo, non bibendum nisi.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      function toggleSidebar() {
+        const sidebar = document.getElementById("sidebar");
+        const overlay = document.getElementById("overlay");
+        sidebar.classList.toggle("active");
+        overlay.classList.toggle("active");
+      }
+    </script>
+  </body>
+</html>
